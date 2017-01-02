@@ -35,11 +35,12 @@
 ; -----------------------------------------------------------------------------
 ;;; Warnings
 (eval-now
-(defun style-warn (string &rest args)
-  #-sbcl
-  (apply #'warn string args)
-  #+sbcl
-  (apply #'sb-int:style-warn string args)))
+  (unless (fboundp 'style-warn)
+    (defun style-warn (string &rest args)
+      #-sbcl
+      (apply #'warn string args)
+      #+sbcl
+      (apply #'sb-int:style-warn string args))))
 
 ; -----------------------------------------------------------------------------
 ;;; Helper functions for package management
