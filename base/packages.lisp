@@ -72,9 +72,9 @@
              (*print-level* nil)
              (*print-length* nil))
         (when xnd
-          (style-warn "Current defpackage for ~A doesn't include declared exports~% ~S" (package-name p) xnd))
+          (warn "Current defpackage for ~A doesn't include declared exports~% ~S" (package-name p) xnd))
         (when dnx
-          (style-warn "Current defpackage for ~A includes undeclared exports~% ~S" (package-name p) dnx)))
+          (warn "Current defpackage for ~A includes undeclared exports~% ~S" (package-name p) dnx)))
     `(defpackage
       ,(s name)
       ,@(w* :nicknames nicknames)

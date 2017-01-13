@@ -33,20 +33,10 @@
   (defmacro the* (type form) (declare (ignore type)) form))
 
 ; -----------------------------------------------------------------------------
-;;; Warnings
-(eval-now
-  (unless (fboundp 'style-warn)
-    (defun style-warn (string &rest args)
-      #-sbcl
-      (apply #'warn string args)
-      #+sbcl
-      (apply #'sb-int:style-warn string args))))
-
-; -----------------------------------------------------------------------------
 ;;; Helper functions for package management
 
 (eval-now
-(defparameter *package-misdefinition-warning-hook* #'style-warn)
+(defparameter *package-misdefinition-warning-hook* #'warn)
 
 (defun package-exported-symbols-symbol (p)
   (find-symbol "%%EXPORTED-SYMBOLS" p))
@@ -130,7 +120,6 @@
 (ensure-symbols-exported
  eval-now
  declaim-type declare-type the*
- style-warn
  *package-misdefinition-warning-hook*
  ensure-symbols-exported* ensure-symbols-exported ensure-symbol-exported
  exporting-definitions define-exporter)
